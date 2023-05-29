@@ -30,7 +30,7 @@ public class DvcLog {
         LogModel logModel = new LogModel(
                 event,
                 String.valueOf(getBatteryLevel(ctx)),
-                "0",
+                isCharge(ctx) ? "1" : "0",
                 getWifiSsid(ctx),
                 "1",
                 getCurrentDate()
@@ -50,6 +50,16 @@ public class DvcLog {
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
         return level * 100 / (float)scale;
+    }
+
+    private boolean isCharge(Context ctx) {
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = ctx.registerReceiver(null, ifilter);
+
+        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+
+        return status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
     private String getWifiSsid(Context ctx) {
