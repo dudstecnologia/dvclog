@@ -48,8 +48,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COL_EVENT, logModel.getId());
-        values.put(COL_BATERY, logModel.getEvent());
+        values.put(COL_EVENT, logModel.getEvent());
+        values.put(COL_BATERY, logModel.getBatery());
         values.put(COL_CHARGE, logModel.getCharge());
         values.put(COL_NETWORK, logModel.getNetwork());
         values.put(COL_ISWIFI, logModel.getIsWifi());

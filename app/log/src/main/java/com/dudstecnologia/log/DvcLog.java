@@ -9,6 +9,10 @@ import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class DvcLog {
 
     public void log1(String msg) {
@@ -29,7 +33,7 @@ public class DvcLog {
                 "0",
                 getWifiSsid(ctx),
                 "1",
-                "2022-05-29"
+                getCurrentDate()
         );
 
         long idLog = databaseHelper.saveLog(logModel);
@@ -59,5 +63,10 @@ public class DvcLog {
         }
 
         return ssid;
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date());
     }
 }
